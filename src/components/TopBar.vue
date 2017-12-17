@@ -27,12 +27,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;/* 居中对齐弹性盒的各项 <div> 元素： */
-    padding:20px 40px;
+    padding:20px 60px;
     box-shadow:0 0 5px #999;
     .logo{
-      font-family: "Helvetica Neue",Helvetica,"PingFang SC",
-      "Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-      font-size:18px;
+      font-family: "Helvetica Neue";
+      color:#409EFF;
+      font-weight: 600;
+      font-size:32px;
     }
   }
 </style>

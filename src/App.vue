@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <TopBar class='topbar'/>
+    <TopBar/>
     <main>
-      <Editor class='editor'/>
-      <Preview class='preview'/>
+      <Editor/>
+      <Preview/>
     </main>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
 
 <style lang='scss'>
   *{margin:0;padding:0;list-style:none;}
-  // html,body,#app{height:100%}
+  html,body,#app{height:100%}
   a{color:inherit}
   #app{
     display: flex;
@@ -35,12 +35,15 @@ export default {
     position: relative;z-index:1;//让顶部位于主页面上面
   }
   main{
-    // height:100%;
+    height:100%;
     flex:1;
     display: flex;
     .editor{
-
+      margin:20px 20px 20px 60px;    
       width:400px;
+      box-shadow:0 0 5px #111;
+      border-radius:5px;
+      overflow:hidden;
     }
     .preview{
 
