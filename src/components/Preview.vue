@@ -1,5 +1,5 @@
 <template>
-  <div id='preview'>right</div>
+  <div class='preview'>right</div>
 </template>
 
 

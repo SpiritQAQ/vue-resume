@@ -38,15 +38,21 @@ export default {
     height:100%;
     flex:1;
     display: flex;
+    background: #eee;
     .editor{
-      margin:20px 20px 20px 60px;    
-      width:400px;
+      margin:20px 25px 20px 150px;    
+      width:450px;
       box-shadow:0 0 5px #111;
       border-radius:5px;
       overflow:hidden;
+      background:white;
     }
     .preview{
-
+      margin:20px 150px 20px 25px;
+      overflow:hidden;
+      background:white;
+      box-shadow:0 0 5px #111;
+      border-radius:5px;
       flex:1
     }
   }
