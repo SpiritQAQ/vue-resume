@@ -41,18 +41,16 @@ export default {
     background: #eee;
     .editor{
       margin:20px 25px 20px 150px;    
-      width:500px;
-      box-shadow:0 0 5px #111;
+      width:450px;
+      box-shadow:0 1px 5px #111;
       border-radius:5px;
       overflow:hidden;
       background:white;
     }
     .preview{
       margin:20px 150px 20px 25px;
-      overflow:hidden;
-      background:white;
-      box-shadow:0 0 5px #111;
-      border-radius:5px;
+      // overflow:hidden;
+      // border-radius:5px;
       flex:1
     }
   }
