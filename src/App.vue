@@ -41,7 +41,7 @@ export default {
     background: #eee;
     .editor{
       margin:20px 25px 20px 150px;    
-      width:450px;
+      width:500px;
       box-shadow:0 0 5px #111;
       border-radius:5px;
       overflow:hidden;

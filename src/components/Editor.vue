@@ -2,19 +2,23 @@
   <div class='editor' ref='editor'>
     <ol class="container">
       <li v-for="(value,key,index) in resume">
-        <div class='edi-header' v-on:click="currentTab = index ,setHeight()">
+        <div class='edi-header' v-on:click="currentTab = index ">
           <i class="el-icon-arrow-right" v-bind:class="{ active:currentTab===index }"></i>
           {{key}}
         </div>
         <div class="panes" v-bind:class="{ active:currentTab===index }" v-bind:style= "'height:'+paneHeight+'px'" > 
-          <el-form v-for="item in value">
-            <el-form-item v-for="(value,key,index) in item">
-              <label>{{key}}</label>
-              <el-input v-model="item[key]"></el-input>
-            </el-form-item>
+          <el-form v-for="item in value" class='form-container'>
+            <!-- <hr> -->
+            <el-form-item v-for="(value,key) in item" v-bind:label="key">
+              <el-input v-model="item[key]"></el-input>             
+            </el-form-item> 
+            <i class="el-icon-error"  v-if="key=='工作经历'||key=='教育经历'||key=='项目经历'||key=='获奖情况'" 
+               v-on:click= "removeForm()"></i>          
           </el-form>
-        
-        </div>
+          <el-button type="primary" v-on:click="addForm(key)"
+                     v-if="key=='工作经历'||key=='教育经历'||key=='项目经历'||key=='获奖情况'">
+            添加{{key}}</el-button>
+        </div>        
       </li>
     </ol>
   </div>
@@ -27,14 +31,8 @@
         currentTab :0 ,
         paneHeight:0,
         resume:{
-          // profile:{header:'基本信息',content:{haha:'233'}},
-          // career : {header:'工作经历',content:{haha:'233'}},
-          // education:{header:'教育经历',content:{haha:'233'}},
-          // projects:{header:'项目经历',content:{haha:'233'}},
-          // awards:{header:'获奖情况',content:{haha:'233'}},
-          // contacts:{header:'联系方式',content:{haha:'233'}}
           '基本信息':[
-            {'姓名':'','出生日期':'','城市':''}
+            {姓名:'',出生日期:'',城市:''}
             ],
           '工作经历':[
             { 公司: 'AL', 工作内容: '我的第二份工作是' },
@@ -42,7 +40,7 @@
           ],
           '教育经历':[
             { 学校: 'AL', 教育内容: '文字' },
-            { 学校: 'TX', 教育内容: '文字' },
+            { 学校: 'TX', 教育内容: '文字'  },
           ],
           '项目经历':[
             { 项目: 'project A', 项目介绍: '文字' },
@@ -57,11 +55,27 @@
             { 邮箱: ''},
             { QQ:''}
           ]
-
         }
-        
       }    
-    },mounted(){
+    }
+    ,computed:{
+
+    }
+    ,methods:{
+      addForm(key){
+        const empty = {}
+        Object.keys(this.resume[key][0]).map((key)=>{
+          empty[key]=''
+        })
+        // console.log(Object.keys(this.resume[key][0]))
+        // console.log(empty)
+        this.resume[key].push(empty)
+      },
+      removeForm(){
+
+      }
+    }
+    ,mounted(){
       let _this = this
       this.paneHeight = this.$refs.editor.offsetHeight-6*41
       window.onresize = ()=>{    //监听浏览器窗口大小变化，更新高度
@@ -69,9 +83,7 @@
         if(_this.paneHeight<300){
           _this.paneHeight=300
         }
-        
-      };
-          
+      };        
     }
 
       
@@ -106,6 +118,22 @@
           &.active{
             display:block;
           }
+          > .form-container{
+            padding:0 10px 10px 10px;
+            margin:20px 10px;
+            border-radius: 3px;
+            box-shadow:0 0px 3px 1px #409eff;
+            position: relative;
+            > i{
+              position: absolute;
+              top:5px;
+              right:5px;
+              font-size:1.2em;
+            }
+          }
+          > .el-button{
+            margin-left:10px
+          }  
         }
       }
     }
