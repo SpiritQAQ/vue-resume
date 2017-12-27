@@ -101,6 +101,9 @@
           height:30px;
           cursor:pointer;
           box-shadow: 0 1px 3px #333;
+          transition-duration: 0.5s;
+          position: relative;
+          z-index:2;
           >i{margin-left:10px;margin-right:5px;}
           >i.active{
             transform:rotate(90deg);
@@ -110,22 +113,30 @@
           background: linear-gradient(to bottom, rgba(64,158,255,1), rgba(64,158,255,0.6));
         }
         > .panes{
-          text-shadow: 0 -1px 1px #888;
+          // text-shadow: 0 -1px 1px #888;
           transition-duration: 0.5s;
           margin:5px 10px 0;
           display:none;
           overflow:auto;
+          position: relative;
+          z-index:1;
           &.active{
             display:block;
+            animation: hideIndex 0.3s;
+          }
+          @keyframes hideIndex{
+    
+            0%{ opacity: 0; transform: translate(200px,0) }
+            100%{opacity: 1; transform: translate(0, 0) }
           }
           > .form-container{
             padding:0 10px 10px 10px;
             margin:20px 30px 20px 20px;;
-            border-bottom:2px solid rgba(34,34,34,0.9);
+            border-bottom:1px solid rgba(34,34,34,0.6);
             border-radius: 5px;
             box-shadow:0px  -2px  3px rgba(34,34,34,0.6);//#222
             position: relative;
-            background: linear-gradient(to top,rgba(34,34,34,0.8),rgba(55,55,111,0.8));
+            // background: linear-gradient(to top,rgba(34,34,34,0.8),rgba(55,55,111,0.8));
             > i{
               position:absolute;
               top:0%; 
