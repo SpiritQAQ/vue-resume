@@ -13,12 +13,14 @@ import HelloWorld from './components/HelloWorld'
 import TopBar from './components/TopBar'
 import Editor from './components/Editor'
 import Preview from './components/Preview'
+import store from './store/index'
 export default {
   name: 'app',
   components: {
     HelloWorld,
     TopBar,Preview,Editor 
-  }
+  },
+  store
 }
 </script>
 
