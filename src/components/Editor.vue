@@ -15,7 +15,7 @@
             <i class="el-icon-error"  v-if="key=='工作经历'||key=='教育经历'||key=='项目经历'||key=='获奖情况'" 
                v-on:click= "removeForm(value,item)"></i>          
           </el-form>
-          <el-button type="primary" v-on:click="addForm(key)"
+          <el-button type="primary" v-on:click="addForm(key)" v-bind:title="'添加一项'+key"
                      v-if="key=='工作经历'||key=='教育经历'||key=='项目经历'||key=='获奖情况'">
             添加{{key}}</el-button>
         </div>        
@@ -78,9 +78,9 @@
     }
     ,mounted(){
       let _this = this
-      this.paneHeight = this.$refs.editor.offsetHeight-6*40
+      this.paneHeight = this.$refs.editor.offsetHeight-6*41
       window.onresize = ()=>{    //监听浏览器窗口大小变化，更新高度
-        _this.paneHeight = _this.$refs.editor.offsetHeight-6*40
+        _this.paneHeight = _this.$refs.editor.offsetHeight-6*41
         if(_this.paneHeight<300){
           _this.paneHeight=300
         }
@@ -100,6 +100,7 @@
           line-height:30px;
           height:30px;
           cursor:pointer;
+          box-shadow: 0 1px 3px #333;
           >i{margin-left:10px;margin-right:5px;}
           >i.active{
             transform:rotate(90deg);
@@ -109,8 +110,9 @@
           background: linear-gradient(to bottom, rgba(64,158,255,1), rgba(64,158,255,0.6));
         }
         > .panes{
+          text-shadow: 0 -1px 1px #888;
           transition-duration: 0.5s;
-          margin:0 10px;
+          margin:5px 10px 0;
           display:none;
           overflow:auto;
           &.active{
@@ -119,28 +121,31 @@
           > .form-container{
             padding:0 10px 10px 10px;
             margin:20px 30px 20px 20px;;
+            border-bottom:2px solid rgba(34,34,34,0.9);
             border-radius: 5px;
-            box-shadow:0px 0px 5px 3px rgba(33,33,33,0.6);
+            box-shadow:0px  -2px  3px rgba(34,34,34,0.6);//#222
             position: relative;
-            background: linear-gradient(to left,rgba(111,111,111,0.2),rgba(55,55,111,0.6));
+            background: linear-gradient(to top,rgba(34,34,34,0.8),rgba(55,55,111,0.8));
             > i{
               position:absolute;
-              top:50%; 
-              margin-top:-15px; 
-              right:-15px;
-              font-size:30px;
+              top:0%; 
+              margin-top:-8px; 
+              right:-8px;
+              font-size:20px;
               cursor: pointer;
-              color:rgb(43, 45, 46);
-              background-color: #fff;
-              border-radius: 15px;
+              box-shadow:0 0 3px 1px #111;
+              color:#fff;
+              background: #111;
+              z-index:3;
+              border-radius: 10px;
               transition-duration: 0.3s;
-              box-shadow:0 0 1px 2px  rgba(33,33,33,0.6);
+              // box-shadow:0 0 1px 2px  rgba(33,33,33,0.6);
               &:hover{
-                transform:scale(1.3)
+                transform:scale(1.1)
                 
               }
             }
-            > .el-form-item{
+            > .el-form-item{              
               > .el-form-item__label{
                 color:black;
                 
@@ -149,10 +154,16 @@
           }
           > .el-button{
             display: block;
-            margin:0 auto;
+            margin:20px auto;
             background-color: #666;
-            border:1px solid #666;
+            border:0px;
             cursor: pointer;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 1px 3px #999;
+            text-shadow: 0 -1px 1px #222;
+            border-bottom: 1px solid #222;
+
             &:hover{
               opacity: 0.8
             }

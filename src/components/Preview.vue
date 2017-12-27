@@ -5,7 +5,9 @@
 </template>
 
 <script>
-  import Editor from './Editor'
+export default {
+  props:['resume']  
+}
 </script>
 <style lang='scss'>
   .preview{
