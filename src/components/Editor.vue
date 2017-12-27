@@ -29,31 +29,28 @@
     data(){
       return {
         paneHeight:0,
-        
+        currentTab :0,      
       }    
     }
     ,computed:{
       resume(){
         return this.$store.state.resume
       },
-      currentTab(){
-        return this.$store.state.currentTab
-      }
-    }
+    } 
     ,methods:{
       addForm(key){
         const empty = {}
         Object.keys(this.resume[key][0]).map((key)=>{
           empty[key]=''
         })
-        // console.log(Object.keys(this.resume[key][0]))
-        // console.log(empty)
+          // console.log(Object.keys(this.resume[key][0]))
+          // console.log(empty)
         this.resume[key].push(empty)
-      },
+      },  
       removeForm(value,item){
         value.splice(value.indexOf(item),1)        
-        
       }
+        
     }
     ,mounted(){
       let _this = this

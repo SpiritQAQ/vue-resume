@@ -4,9 +4,7 @@ import Vue from 'vue'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state : {
-        count:0,
-        currentTab :0 ,
+    state : {       
         resume:{
           '基本信息':[
             {姓名:'',出生日期:'',城市:''}
@@ -35,9 +33,6 @@ export default new Vuex.Store({
         }
     },
     mutations:{
-        increment(state){
-            state.count++
-        }
-        
+
     }
 })

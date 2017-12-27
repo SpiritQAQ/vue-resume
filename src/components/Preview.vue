@@ -1,6 +1,6 @@
 <template>
   <div class='preview'>
-    <p>Message is:{{haha}} </p>
+    <p>Message is:{{resume['工作经历']}} </p>
     <button v-on:click = "add">click me </button>
   </div>
 </template>
@@ -11,6 +11,9 @@ export default {
   computed : {
     haha : function(){
       return this.$store.state.count
+    },
+    resume(){
+      return this.$store.state.resume
     }
   },
   methods : {
