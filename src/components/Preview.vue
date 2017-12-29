@@ -1,8 +1,18 @@
 <template>
   <div class='preview'>
    
-    {{resume}}
-
+    {{resume.工作经历}}
+    <section class="profile">
+      <h1>{{resume.基本信息[0].姓名}}</h1>
+      <p>{{resume.基本信息[2].城市}}|{{resume.基本信息[1].出生日期}}</p>
+    </section>
+    <section class="workHistory">
+      <h2>工作经历</h2>
+      <div class="container" v-for="item in resume.工作经历">
+        <h3>{{item.公司}}</h3>
+        <p>{{item.工作内容}}</p>
+      </div>
+    </section>
   </div>
 </template>
 

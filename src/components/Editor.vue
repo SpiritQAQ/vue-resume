@@ -10,8 +10,7 @@
           <el-form v-for="(item,idx) in items" class='form-container'>
             <el-form-item v-for="(val,key) in item" v-bind:label="key">
               <!-- <el-input v-bind:value= "value" @input = "resumeUpdate(itemKey,key,id,$event.target.value)"></el-input> -->
-              <!-- el-input defeat -->
-              
+              <!-- el-input defeat -->              
               <input class="el-input__inner" v-bind:value= "val" 
               @input = "resumeUpdate(itemKey,key,idx,$event.target.value)" > 
             </el-form-item> 
