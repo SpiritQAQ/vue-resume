@@ -14,16 +14,16 @@ export default new Vuex.Store({
             { 公司: 'TX', 工作内容: '我的第二份工作是' },
           ],
           '教育经历':[
-            { 学校: 'AL', 教育内容: '文字' },
-            { 学校: 'TX', 教育内容: '文字'  },
+            { 学校: 'AL', 教育内容: 'xuexiao1' },
+            { 学校: 'TX', 教育内容: 'xuexiao2'  },
           ],
           '项目经历':[
-            { 项目: 'project A', 项目介绍: '文字' },
-            { 项目: 'project B', 项目介绍: '文字' },
+            { 项目: 'project A', 项目介绍: 'project1' },
+            { 项目: 'project B', 项目介绍: 'project2' },
           ],
           '获奖情况':[
-            { name: 'awards A', content: '文字' },
-            { name: 'awards B', content: '文字' },
+            { name: 'awards A', content: 'award1' },
+            { name: 'awards B', content: 'award2' },
           ],
           '联系方式':[
             { 电话号码:'' },

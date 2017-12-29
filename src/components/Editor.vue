@@ -7,16 +7,13 @@
           {{itemKey}}
         </div>
         <div class="panes" v-bind:class="{ active:currentTab===index }" v-bind:style= "'height:'+paneHeight+'px'" > 
-          <el-form v-for="item in items" class='form-container'>
-            <!-- <hr> -->
-            <el-form-item v-for="(val,key,idx) in item" v-bind:label="key">
-              <!-- <el-input v-bind:value= "value" @input = "resumeUpdate(itemKey,key,idx,$event.target.value)"></el-input> -->
+          <el-form v-for="(item,idx) in items" class='form-container'>
+            <el-form-item v-for="(val,key) in item" v-bind:label="key">
+              <!-- <el-input v-bind:value= "value" @input = "resumeUpdate(itemKey,key,id,$event.target.value)"></el-input> -->
               <!-- el-input defeat -->
-              <!-- {{value}}{{key}}{{idx}} -->
               
-              <input class="el-input__inner" v-bind:value= "val" @input = "resumeUpdate(itemKey,key,idx,$event.target.value)"> 
-              <!-- {{item}}{{val}}+{{idx}}+{{key}} -->
-              {{resume[itemKey][idx][key]}}
+              <input class="el-input__inner" v-bind:value= "val" 
+              @input = "resumeUpdate(itemKey,key,idx,$event.target.value)" > 
             </el-form-item> 
             <i class="el-icon-error"  v-if="itemKey=='工作经历'||itemKey=='教育经历'||itemKey=='项目经历'||itemKey=='获奖情况'" 
                v-on:click= "removeForm(item,items)"></i>
