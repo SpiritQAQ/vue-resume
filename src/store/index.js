@@ -7,11 +7,11 @@ export default new Vuex.Store({
     state : {       
         resume:{
           '基本信息':[
-            {姓名:'',出生日期:'',城市:''}
+            {姓名:''},{出生日期:''},{城市:''}
             ],
           '工作经历':[
-            { 公司: 'AL', 工作内容: '我的第二份工作是' },
-            { 公司: 'TX', 工作内容: '我的第一份工作是' },
+            { 公司: 'AL', 工作内容: '我的第一份工作是' },
+            { 公司: 'TX', 工作内容: '我的第二份工作是' },
           ],
           '教育经历':[
             { 学校: 'AL', 教育内容: '文字' },
@@ -33,6 +33,8 @@ export default new Vuex.Store({
         }
     },
     mutations:{
-
+      updateResume(state,{itemKey,key,idx,value}){
+          state.resume[itemKey][idx][key] = value
+      }
     }
 })
