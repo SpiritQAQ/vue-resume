@@ -41,9 +41,6 @@
       },
     } 
     ,methods:{
-      con(){
-        console.log(this.resume.itemKey)
-      },
       resumeUpdate(itemKey,key,idx,value){
 
         this.$store.commit('updateResume',{
