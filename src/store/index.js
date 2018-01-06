@@ -39,7 +39,7 @@ export default new Vuex.Store({
           localStorage.setItem('state', JSON.stringify(state))
       },
       initState(state,payload){
-        Object.assign(state,payload)
+        Object.assign(state,payload) //新打开的页面state替换为localStorage储存的state
       },
     }
 })
