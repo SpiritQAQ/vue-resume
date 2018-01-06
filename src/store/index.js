@@ -11,11 +11,11 @@ export default new Vuex.Store({
           }],
           '工作经历':[
             { 公司: '这里是公司名',时间:'2007.6-2008.9', 详情: '工作详情' },
-            { 公司: '' ,时间:'', 详情: ''},
+            // { 公司: '' ,时间:'', 详情: ''},
           ],
           '教育经历':[
             { 学校: '这里是学校名',时间:'2007.6-2008.9', 详情: '详情' },
-            { 学校: '',时间:'', 详情: ''  },
+            // { 学校: '',时间:'', 详情: ''  },
           ],
           '项目经历':[
             { 项目: 'project A', 详情: 'project1' },
@@ -36,6 +36,10 @@ export default new Vuex.Store({
     mutations:{
       updateResume(state,{itemKey,key,idx,val}){
           state.resume[itemKey][idx][key] = val
-      }
+          localStorage.setItem('state', JSON.stringify(state))
+      },
+      initState(state,payload){
+        Object.assign(state,payload)
+      },
     }
 })

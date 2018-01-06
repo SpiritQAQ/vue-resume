@@ -84,11 +84,13 @@ export default {
   }
   .profile{
     width:100%;
-    height: 180px;
+    margin-bottom: 20px;
     overflow: hidden;
     > .name{
-      font-size:3rem;
+      font-size:3.5rem;
       margin-bottom: 10px;
+      font-family:"宋体";
+      
     }
     > .birth,.position,.information{
       line-height: 30px;
