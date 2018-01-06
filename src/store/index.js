@@ -22,8 +22,8 @@ export default new Vuex.Store({
             { 项目: 'project B', 详情: 'project2' },
           ],
           '工作技能':[
-            { name: 'javascript', content: '' },
-            { name: 'html5+css3', content: '' },
+            { 内容: 'javascript'},
+            { 内容: 'html5+css3'},
           ],
           '联系方式':[
              {电话号码:'1xxxxxxxxxx'} ,

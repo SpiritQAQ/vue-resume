@@ -35,29 +35,31 @@
               @input.native = "resumeUpdate(itemKey,Object.keys(item)[1],idx,$event.target.value)"></el-input>
             </el-form-item>
             <el-form-item v-bind:label="Object.keys(item)[2]">
-              <el-input type='textarea' autosize v-bind:value="item[Object.keys(item)[2]]"
+              <el-input type='textarea' :autosize="{minRows:2,maxRows:3}" v-bind:value="item[Object.keys(item)[2]]"
               @input.native = "resumeUpdate(itemKey,Object.keys(item)[2],idx,$event.target.value)"></el-input>
             </el-form-item>
             <i class="el-icon-error" 
                v-on:click= "removeForm(item,items)"></i>
           </el-form>
-          <el-form class='form-container' v-if="itemKey ==='项目经历'||itemKey==='工作技能'" v-for="(item,idx) in items">
+          <el-form class='form-container' v-if="itemKey ==='项目经历'" v-for="(item,idx) in items">
             <el-form-item v-bind:label="Object.keys(item)[0]"> 
               <el-input type="text"  v-bind:value="item[Object.keys(item)[0]]"
                @input.native = "resumeUpdate(itemKey,Object.keys(item)[0],idx,$event.target.value)"></el-input>
             </el-form-item>
             <el-form-item v-bind:label="Object.keys(item)[1]">
-              <el-input type='textarea' autosize  v-bind:value="item[Object.keys(item)[1]]"
+              <el-input type='textarea' :rows="2"  v-bind:value="item[Object.keys(item)[1]]"
                @input.native = "resumeUpdate(itemKey,Object.keys(item)[1],idx,$event.target.value)"></el-input>
             </el-form-item>
             <i class="el-icon-error" 
                v-on:click= "removeForm(item,items)"></i>
           </el-form>
-          <el-form class='form-container' v-if="itemKey ==='基本信息'||itemKey==='联系方式'" v-for="(item,idx) in items"> 
+          <el-form class='form-container' v-if="itemKey ==='基本信息'||itemKey==='联系方式'||itemKey==='工作技能'" v-for="(item,idx) in items"> 
             <el-form-item v-for="(val,key) in item" v-bind:label="key"> 
               <el-input type="text" v-bind:value="val"
               @input.native = "resumeUpdate(itemKey,key,idx,$event.target.value)"></el-input>
             </el-form-item>
+            <i class="el-icon-error" 
+               v-on:click= "removeForm(item,items)" v-if="itemKey==='工作技能'"></i>
           </el-form>       
           <el-button type="primary" v-on:click="addForm(itemKey) " v-bind:title="'添加一项'+itemKey"
                      v-if="itemKey=='工作经历'||itemKey=='教育经历'||itemKey=='项目经历'||itemKey=='工作技能'">
