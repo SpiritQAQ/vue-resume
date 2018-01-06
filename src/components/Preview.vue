@@ -4,21 +4,16 @@
     <!-- {{resume.工作经历}} -->
     <section class="profile ">
       <h1 class='name'>{{resume.基本信息[0].姓名}}</h1>
-      <div class="position">{{resume.基本信息[3].职位}}</div>
-      <div class='birth'>{{resume.基本信息[2].城市}} | {{resume.基本信息[1].出生日期}}</div>
+      <div class="position">{{resume.基本信息[0].职位}}</div>
+      <div class='birth'>{{resume.基本信息[0].城市}} | {{resume.基本信息[0].出生日期}}</div>
       <div class="information">
-        <span>phone : {{resume.联系方式[0].电话号码}}</span>
-        <span>e-mail : {{resume.联系方式[1].邮箱}}</span>
+        <span>Phone : {{resume.联系方式[0].电话号码}}</span>
+        <span>||</span>
+        <span>E-mail : {{resume.联系方式[1].邮箱}}</span>
+        <span>||</span>
+        <span>Github:<a v-bind:href="'https://'+resume.联系方式[2].github">{{resume.联系方式[2].github}}</a></span>
 
 
-      </div>
-    </section>
-    <section class="work-history">
-      <h3>工作经历</h3>
-      <div class="container" v-for="item in resume.工作经历">
-        <div class="date">{{item.时间}}</div>
-        <div class='item-name'>{{item.公司}}</div>
-        <p>{{item.详情}}</p>
       </div>
     </section>
     <section class="edu-history">
@@ -26,17 +21,31 @@
       <div class="container" v-for="item in resume.教育经历">
         <div class="date">{{item.时间}}</div>
         <div class='item-name'>{{item.学校}}</div>
-        <p>{{item.详情}}</p>
+        <pre>{{item.详情}}</pre>
       </div>
     </section>  
-    <section class="edu-history">
+    <section class="project">
       <h3>项目经历</h3> 
-      <div class="container" v-for="item in resume.项目经历">
-        <div class="date">{{item.时间}}</div>
+      <div class="container" v-for="item in resume.项目经历"> 
         <div class='item-name'>{{item.项目}}</div>
-        <p>{{item.详情}}</p>
+        <pre>{{item.详情}}</pre>
       </div>
-    </section>  
+    </section> 
+    <section class="skill" >
+      <h3>工作技能</h3>
+      <div class="container" v-for="item in resume.工作技能">
+        <div class='item-name'>{{item.name}}</div> 
+        <pre>{{item.content}}</pre>       
+      </div>
+    </section> 
+    <section class="work-history">
+      <h3>工作经历</h3>
+      <div class="container" v-for="item in resume.工作经历">
+        <div class="date">{{item.时间}}</div>
+        <div class='item-name'>{{item.公司}}</div>
+        <pre>{{item.详情}}</pre>
+      </div>
+    </section>    
 
   </div>
 </template>
@@ -83,7 +92,7 @@ export default {
       line-height: 30px;
     }
   } 
-  .work-history,.edu-history{
+  .work-history,.edu-history,.project,.skill{
     > h3{
       background:$header-bgc;
       padding:10px;
@@ -91,11 +100,25 @@ export default {
     > .container{
       min-height:100px;
       padding:10px;
+      margin-bottom: 5px;
       >.date{
         float:left;
         height:100px;
         width:20%;
       }
+      > pre{
+        font-size:16px;
+        font-weight: normal;
+        font-family: "微软雅黑"  
+      }
+      >.item-name{
+        margin-bottom:5px;
+      }
+    }
+  }
+  .project{
+    .item-name{
+      font-weight: bolder;
     }
   }
   
