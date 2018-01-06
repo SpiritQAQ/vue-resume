@@ -30,7 +30,8 @@
     padding:20px 150px;
     box-shadow:0 0 5px 3px #999;
     .logo{
-      font-family: "Helvetica Neue";
+      /* font-family: "Helvetica Neue"; */
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
       color:#333;
       text-shadow: 
     /* Color 1 */
