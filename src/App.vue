@@ -51,7 +51,7 @@ export default {
     }
     .preview{
       margin:20px 150px 20px 25px;
-      overflow:scroll;
+      overflow:auto;
       // border-radius:5px;
       flex:1
     }
