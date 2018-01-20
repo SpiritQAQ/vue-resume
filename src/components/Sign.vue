@@ -2,8 +2,8 @@
   <div class="dialog">
     <section id="sign">
       <div class="tab">
-        <span class="tabList" v-model="activeType" v-bind:class="{active : activeType=='signIn'" value="signIn">登录</span> · 
-        <span class="tabList" v-model="activeType" v-bind:class="{active : activeType=='signIn'" value="signUp">注册</span>  
+        <span class="tabList" v-model="activeType" v-bind:class="{active : activeType=='signIn'}" value="signIn">登录</span> · 
+        <span class="tabList" v-model="activeType" v-bind:class="{active : activeType=='signUp'}" value="signUp">注册</span>  
       </div>
       <div class="signUp" v-if="activeType=='signUp'">
         <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="70px" class="demo-ruleForm">
@@ -146,6 +146,10 @@
     margin:20px auto;
     line-height:50px;
     font-size:20px;
+    .active{
+      border-bottom:2px solid $blue;
+      color:$blue;
+    }
     .tabList{
       cursor: pointer;
       margin:0px;
