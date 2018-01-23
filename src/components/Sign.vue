@@ -2,13 +2,14 @@
   <div class="dialog">
     <section id="sign">
       <div class="tab">
-        <span class="tabList" v-model="activeType" v-bind:class="{active : activeType=='signIn'}" value="signIn">登录</span> · 
-        <span class="tabList" v-model="activeType" v-bind:class="{active : activeType=='signUp'}" value="signUp">注册</span>  
+        <span class="tabList" v-on:click="activeType='signIn' ,resetForm('ruleForm2')" v-bind:class="{active : activeType=='signIn'}" value="signIn">登录</span> · 
+        <span class="tabList" v-on:click="activeType='signUp' ,resetForm('loginForm')" v-bind:class="{active : activeType=='signUp'}" value="signUp">注册</span>  
       </div>
-      <div class="signUp" v-if="activeType=='signUp'">
+      <div class="signUp" v-show="activeType=='signUp'"> <!--v-if会使表单验证的promise报错，
+      一般来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。-->
         <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="70px" class="demo-ruleForm">
           <el-form-item label="用户名" prop="name">
-            <el-input v-model="ruleForm2.name"></el-input>
+            <el-input v-model="ruleForm2.name" icon='user' ></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="pass">
             <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
@@ -17,21 +18,21 @@
             <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
           </el-form-item> 
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm2')">注册</el-button>
+            <el-button type="primary" @click="signUp">注册</el-button>
             <el-button @click="resetForm('ruleForm2')">重置</el-button>
           </el-form-item>
         </el-form>              
       </div>
-      <div class="signIn"  v-if="activeType=='signIn'">
-        <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="70px" class="demo-ruleForm">
+      <div class="signIn"  v-show="activeType=='signIn'"> 
+        <el-form :model="loginForm" status-icon :rules="loginRules" ref="loginForm" label-width="70px" class="demo-ruleForm">
           <el-form-item label="用户名" prop="name">
-            <el-input v-model="ruleForm2.name"></el-input>
+            <el-input v-model="loginForm.name"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+            <el-input type="password" v-model="loginForm.pass" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm2')">登陆</el-button>
+            <el-button type="primary" @click="submitForm('loginForm')">登陆</el-button>
           </el-form-item>
         </el-form>              
       </div>    
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+import AV from 'leancloud-storage'
   export default {
   name:"Sign",
     data() {
@@ -49,7 +51,7 @@
           return callback(new Error('用户名不能为空'));
         }
         setTimeout(() => {
-          if (value.length<=6&&value.length>=18) {
+          if (value.length<6||value.length>18) {
             callback(new Error('用户名长度要在6-18个字符'));
           } else {
             if (value < 18) {
@@ -70,6 +72,18 @@
           callback();
         }
       };
+      var validateLoginPass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          console.log(value.length)
+          if (value.length<6||value.length>15){
+            console.log('233')
+            callback(new Error('密码长度要在6-15个字符'));
+          }
+          callback();
+        }
+      };
       var validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'));
@@ -77,14 +91,27 @@
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
+          console.log('check')
         }
       };
       return {
-        activeType:"signUp",
+        activeType:"signIn",
+        loginForm:{
+          pass:'',
+          name:''
+        },
         ruleForm2: {
           pass: '',
           checkPass: '',
           name: ''
+        },
+        loginRules:{
+          pass: [
+            { validator: validateLoginPass, trigger: 'blur' }
+          ],
+          name: [
+            { validator: checkName, trigger: 'blur' }
+          ]         
         },
         rules2: {
           pass: [
@@ -112,14 +139,19 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
+      },
+      signUp:function(){
+        let user = new AV.User()
+        user.setUsername(this.ruleForm2.name)
+        user.setPassword(this.ruleForm2.pass)
+        user.signUp().then(function(loginUser){
+          console.log(loginUser)
+        },function(error){
+          console.log(error)
+        })
       }
     },
   
-  computed : {
-    
-  },
-  methods : {
-  }
 }
 </script>
 
