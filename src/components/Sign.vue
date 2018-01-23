@@ -32,7 +32,7 @@
             <el-input type="password" v-model="loginForm.pass" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('loginForm')">登陆</el-button>
+            <el-button type="primary" @click="login">登陆</el-button>
           </el-form-item>
         </el-form>              
       </div>    
@@ -43,7 +43,8 @@
 <script>
 import AV from 'leancloud-storage'
   export default {
-  name:"Sign",
+    prop:['showDialog','avtiveType'],
+    name:"Sign",
     data() {
       
       var checkName = (rule, value, callback) => {
@@ -95,7 +96,6 @@ import AV from 'leancloud-storage'
         }
       };
       return {
-        activeType:"signIn",
         loginForm:{
           pass:'',
           name:''
@@ -149,6 +149,13 @@ import AV from 'leancloud-storage'
         },function(error){
           console.log(error)
         })
+      },
+      login:function(){
+        AV.User.logIn(this.loginForm.name,this.loginForm.pass).then(function (loginedUser) {
+          console.log(loginedUser);
+        }, function (error) {
+          alert('登陆失败')
+      });
       }
     },
   

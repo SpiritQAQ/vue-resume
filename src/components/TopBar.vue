@@ -4,21 +4,25 @@
       Vue Resume
     </div>
     <div class="buttonbox">
-      <el-button type="primary">注册</el-button>
-      <el-button type="primary" plain>登录</el-button>
+      <el-button type="primary" @click="activeType='signUp',showDialog=true">注册</el-button>
+      <el-button type="primary" @click="activeType='signIn',showDialog=true" plain>登录</el-button>
     </div>
+    <Sign/>   
   </div>
 </template>
 
 
 <script>
+  import Sign from './Sign'
   export default {
-  name: 'Topbar',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+    components:{Sign},
+    name: 'Topbar',
+    data(){
+      return {
+        showDialog : false,
+        activeType:''
+      }
     }
-  }
 }
 </script>
 
