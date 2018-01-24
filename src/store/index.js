@@ -31,7 +31,10 @@ export default new Vuex.Store({
              {github:'github.com/SpiritQAQ'}
             
           ]
-        }
+        },
+        activeType:"",
+        showDialog:false
+        
     },
     mutations:{
       updateResume(state,{itemKey,key,idx,val}){

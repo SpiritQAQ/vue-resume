@@ -17,6 +17,14 @@
   export default {
     components:{Sign},
     name: 'Topbar',
+    computed:{
+      activeType(){
+        return this.$store.state.activeType
+      },
+      showDialog(){
+        return this.$store.state.showDialog
+      }
+    }
   
 }
 </script>
