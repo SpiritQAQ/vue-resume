@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog">
+  <div class="dialog" v-show="showDialog">
     <section id="sign">
       <div class="tab">
         <span class="tabList" v-on:click="activeType='signIn' ,resetForm('ruleForm2')" v-bind:class="{active : activeType=='signIn'}" value="signIn">登录</span> · 
@@ -43,7 +43,6 @@
 <script>
 import AV from 'leancloud-storage'
   export default {
-    prop:['showDialog','avtiveType'],
     name:"Sign",
     data() {
       
@@ -164,7 +163,10 @@ import AV from 'leancloud-storage'
 
 <style lang="scss">
   $blue :rgba(64,158,255,1);
-  .dialog{background:#f1f1f1;height:100%;}
+  .dialog{
+    background:#f1f1f1;height:100%;
+  }
+
   #sign{
     // height:500px;
     background: #fff;
@@ -173,11 +175,11 @@ import AV from 'leancloud-storage'
     box-shadow: 0 0 8px rgba(0,0,0,.1);
     vertical-align: middle;
     margin:150px auto 0;
-    // position: absolute;
-    // top:0;
-    // left:0;
-    // bottom: 0;
-    // right:0;
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right:0;
     padding:20px 30px;
   }
   .tab{

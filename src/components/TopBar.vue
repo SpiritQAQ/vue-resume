@@ -17,12 +17,7 @@
   export default {
     components:{Sign},
     name: 'Topbar',
-    data(){
-      return {
-        showDialog : false,
-        activeType:''
-      }
-    }
+  
 }
 </script>
 
