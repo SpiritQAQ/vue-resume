@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <!-- <TopBar/> -->
-    <!-- <main>
+    <TopBar/>
+    <main>
       <Editor/>
       <Preview/>
-    </main> -->
+    </main>
     <Sign/>
     
   </div>
@@ -17,11 +17,14 @@ import Editor from './components/Editor'
 import Sign from './components/Sign'
 import Preview from './components/Preview'
 import store from './store/index'
+import AV from 'leancloud-storage'
+
+
 export default {
   name: 'app',
   components: {
     HelloWorld,
-    TopBar,Preview,Editor,Sign
+    TopBar,Preview,Editor,Sign,AV
   },
   store,
   created(){
