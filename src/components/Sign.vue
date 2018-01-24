@@ -18,7 +18,7 @@
             <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
           </el-form-item> 
           <el-form-item>
-            <el-button type="primary" @click="signUp">注册</el-button>
+            <el-button type="primary" @click="signUp()">注册</el-button>
             <el-button @click="resetForm('ruleForm2')">重置</el-button>
           </el-form-item>
         </el-form>              
@@ -32,7 +32,7 @@
             <el-input type="password" v-model="loginForm.pass" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="login">登陆</el-button>
+            <el-button type="primary" @click="login(),closeDialog()">登陆</el-button>
           </el-form-item>
         </el-form>              
       </div>    
@@ -158,11 +158,18 @@ import AV from 'leancloud-storage'
       },
       signUp(){
         this.$store.commit('signUp')
-        console.log('haha')
       },
       signIn(){
         this.$store.commit('signIn')
       },
+      closeDialog(){
+        if(this.isLogined=true){
+          setTimeout(()=>{
+            this.$store.commit('closeDialog')
+          },1000)
+          
+        }
+      }
     },
     computed:{
       activeType(){
@@ -171,7 +178,10 @@ import AV from 'leancloud-storage'
       dialogStatus(){
         return this.$store.state.dialogStatus
       },
-      
+      isLogined(){
+        return this.$store.state.loginSuccess
+      },
+    
     }    
 }
 </script>
@@ -191,12 +201,12 @@ import AV from 'leancloud-storage'
     // background-size: cover;
     
   }
-  #sign:before{
+  .dialog:after{
     position: absolute;
     background:url('../../static/img/dialogWaller.jpg');
     filter: blur(10px);
-    // z-index:3;
-    // background-size: cover;
+    z-index:3;
+    background-size: cover;
     top:0;
     left:0;
     bottom: 0;
@@ -205,20 +215,17 @@ import AV from 'leancloud-storage'
   }
 
   #sign{
-    // height:500px;
     background: #fff;
     width:400px;
     border-radius:4px;
     box-shadow: 0 0 8px rgba(0,0,0,.1);
     vertical-align: middle;
-    // box-shadow: 0 0 0px 10000px rgba(0,0,0,0.2);
-    // position:fixed;
-    // z-index:2;
-    // top:40%;
-    // left:50%;
-    // transform:translate(-50%,-50%);
+    position:fixed;
     z-index:4;
-    margin:150px auto 0;
+    top:40%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    // margin:150px auto 0;
     // position: absolute;
     // top:0;
     // left:0;

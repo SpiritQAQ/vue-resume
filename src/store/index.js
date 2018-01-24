@@ -33,7 +33,8 @@ export default new Vuex.Store({
           ]
         },
         activeType:"",
-        dialogStatus:false
+        dialogStatus:false,
+        loginSuccess:true,
         
     },
     mutations:{
@@ -52,6 +53,9 @@ export default new Vuex.Store({
       },
       showDialog(state){
         state.dialogStatus=true
+      },
+      closeDialog(state){
+        state.dialogStatus=false
       }
     }
 })
