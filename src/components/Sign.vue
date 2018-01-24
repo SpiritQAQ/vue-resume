@@ -1,9 +1,9 @@
 <template>
-  <div class="dialog" v-show="showDialog">
+  <div class="dialog" v-show="dialogStatus">
     <section id="sign">
       <div class="tab">
-        <span class="tabList" v-on:click="activeType='signIn' ,resetForm('ruleForm2')" v-bind:class="{active : activeType=='signIn'}" value="signIn">登录</span> · 
-        <span class="tabList" v-on:click="activeType='signUp' ,resetForm('loginForm')" v-bind:class="{active : activeType=='signUp'}" value="signUp">注册</span>  
+        <span class="tabList" v-on:click="signIn() ,resetForm('ruleForm2')" v-bind:class="{active : activeType=='signIn'}" value="signIn">登录</span> · 
+        <span class="tabList" v-on:click="signUp() ,resetForm('loginForm')" v-bind:class="{active : activeType=='signUp'}" value="signUp">注册</span>  
       </div>
       <div class="signUp" v-show="activeType=='signUp'"> <!--v-if会使表单验证的promise报错，
       一般来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。-->
@@ -155,23 +155,53 @@ import AV from 'leancloud-storage'
         }, function (error) {
           alert('登陆失败')
       });
-      }
+      },
+      signUp(){
+        this.$store.commit('signUp')
+        console.log('haha')
+      },
+      signIn(){
+        this.$store.commit('signIn')
+      },
     },
     computed:{
       activeType(){
         return this.$store.state.activeType
       },
-      showDialog(){
-        return this.$store.state.showDialog
-      }
+      dialogStatus(){
+        return this.$store.state.dialogStatus
+      },
+      
     }    
 }
 </script>
 
 <style lang="scss">
-  $blue :rgba(64,158,255,1);
+  // $blue :rgba(64,158,255,1);
+  $blue :#31b1e5;
   .dialog{
-    background:#f1f1f1;height:100%;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:2;
+    height:100%;
+    width:100%;
+    // background:url('../../static/img/dialogWaller.jpg');
+    // filter: blur(15px);
+    // background-size: cover;
+    
+  }
+  #sign:before{
+    position: absolute;
+    background:url('../../static/img/dialogWaller.jpg');
+    filter: blur(10px);
+    // z-index:3;
+    // background-size: cover;
+    top:0;
+    left:0;
+    bottom: 0;
+    right:0;
+    content:'';
   }
 
   #sign{
@@ -181,19 +211,28 @@ import AV from 'leancloud-storage'
     border-radius:4px;
     box-shadow: 0 0 8px rgba(0,0,0,.1);
     vertical-align: middle;
+    // box-shadow: 0 0 0px 10000px rgba(0,0,0,0.2);
+    // position:fixed;
+    // z-index:2;
+    // top:40%;
+    // left:50%;
+    // transform:translate(-50%,-50%);
+    z-index:4;
     margin:150px auto 0;
-    position: absolute;
-    top:0;
-    left:0;
-    bottom: 0;
-    right:0;
-    padding:20px 30px;
+    // position: absolute;
+    // top:0;
+    // left:0;
+    // bottom: 0;
+    // right:0;
+    padding:20px 20px 5px 20px;
   }
   .tab{
     width:150px;
     margin:20px auto;
     line-height:50px;
     font-size:20px;
+    position: relative;
+    z-index: 5;
     .active{
       border-bottom:2px solid $blue;
       color:$blue;
@@ -209,6 +248,8 @@ import AV from 'leancloud-storage'
   
   }
   .signUp{
+    position: relative;
+    z-index:5;
     margin:40px 0;
     padding-right:20px;
     button{
@@ -217,11 +258,13 @@ import AV from 'leancloud-storage'
     }
   }
   .signIn{
+    position:relative;
+    z-index:5;
     margin:40px 0;
     padding-right:20px;
     button{
       width:100px;
-      margin:20px 0px 10px 80px;  
+      margin:20px 0px 20px 80px;  
     }
   }
 </style>

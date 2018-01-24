@@ -33,7 +33,7 @@ export default new Vuex.Store({
           ]
         },
         activeType:"",
-        showDialog:false
+        dialogStatus:false
         
     },
     mutations:{
@@ -44,5 +44,14 @@ export default new Vuex.Store({
       initState(state,payload){
         Object.assign(state,payload) //新打开的页面state替换为localStorage储存的state
       },
+      signUp(state){
+        state.activeType="signUp"
+      },
+      signIn(state){
+        state.activeType="signIn"
+      },
+      showDialog(state){
+        state.dialogStatus=true
+      }
     }
 })

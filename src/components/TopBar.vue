@@ -4,10 +4,9 @@
       Vue Resume
     </div>
     <div class="buttonbox">
-      <el-button type="primary" @click="activeType='signUp',showDialog=true">注册</el-button>
-      <el-button type="primary" @click="activeType='signIn',showDialog=true" plain>登录</el-button>
-    </div>
-    <Sign/>   
+      <el-button type="primary" @click="signUp(),showDialog()">注册</el-button>
+      <el-button type="primary" @click="signIn(),showDialog()" plain>登录</el-button>
+    </div> 
   </div>
 </template>
 
@@ -21,8 +20,20 @@
       activeType(){
         return this.$store.state.activeType
       },
+      dialogStatus(){
+        return this.$store.state.dialogStatus
+      }
+    },
+    methods:{
+      signUp(){
+        this.$store.commit('signUp')
+        console.log('haha')
+      },
+      signIn(){
+        this.$store.commit('signIn')
+      },    
       showDialog(){
-        return this.$store.state.showDialog
+        this.$store.commit('showDialog')        
       }
     }
   
