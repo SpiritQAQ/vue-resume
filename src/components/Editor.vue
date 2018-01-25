@@ -1,5 +1,5 @@
 <template>
-  <div class='editor' ref='editor'>
+  <div class='editor' ref='editor' v-show='!isPreview'>
     <ol class="container">
       <li v-for="(items,itemKey,index) in resume">
         <div class='edi-header' v-on:click="currentTab = index ">
@@ -82,6 +82,9 @@
       resume(){
         return this.$store.state.resume
       },
+      isPreview(){
+        return this.$store.state.isPreview
+      }      
     } 
     ,methods:{
       resumeUpdate(itemKey,key,idx,val){

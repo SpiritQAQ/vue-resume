@@ -201,7 +201,7 @@ import AV from 'leancloud-storage'
     // background-size: cover;
     
   }
-  .dialog:after{
+  .dialog:before{
     position: absolute;
     background:url('../../static/img/dialogWaller.jpg');
     filter: blur(10px);
@@ -218,7 +218,7 @@ import AV from 'leancloud-storage'
     background: #fff;
     width:400px;
     border-radius:4px;
-    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     vertical-align: middle;
     position:fixed;
     z-index:4;

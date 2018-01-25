@@ -70,5 +70,10 @@ export default {
       // border-radius:5px;
       flex:1
     }
+    .btn{
+      display: fixed;
+      bottom:10%;
+      right:10%
+    }
   }
 </style>

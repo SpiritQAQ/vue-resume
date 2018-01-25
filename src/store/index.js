@@ -35,6 +35,7 @@ export default new Vuex.Store({
         activeType:"",
         dialogStatus:false,
         loginSuccess:true,
+        isPreview:false,
         
     },
     mutations:{
@@ -56,6 +57,10 @@ export default new Vuex.Store({
       },
       closeDialog(state){
         state.dialogStatus=false
+      },
+      togglePreview(state){
+        state.isPreview = !state.isPreview
       }
+
     }
 })

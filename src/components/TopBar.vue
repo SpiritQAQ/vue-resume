@@ -1,5 +1,5 @@
 <template>
-  <div class='topbar'>
+  <div class='topbar' v-show="!isPreview">
     <div class='logo'>
       Vue Resume
     </div>
@@ -22,6 +22,9 @@
       },
       dialogStatus(){
         return this.$store.state.dialogStatus
+      },
+      isPreview(){
+        return this.$store.state.isPreview
       }
     },
     methods:{
