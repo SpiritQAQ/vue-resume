@@ -28,7 +28,7 @@
     bottom:5%;
     display: flex;
     flex-direction: column;
-    right:1%;
+    right:3%;
     > button{
       margin:10px;
     }

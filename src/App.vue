@@ -57,7 +57,7 @@ export default {
     display: flex;
     background: #eee;
     justify-content:center;
-    padding:0 150px;
+    padding:0 250px;
     .editor{
       margin:20px 25px 20px 0px;    
       width:450px;

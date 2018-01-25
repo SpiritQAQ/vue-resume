@@ -48,7 +48,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;/* 居中对齐弹性盒的各项 <div> 元素： */
-    padding:20px 150px;
+    padding:20px 250px;
     box-shadow:0 0 5px 3px #999;
     .logo{
       /* font-family: "Helvetica Neue"; */
