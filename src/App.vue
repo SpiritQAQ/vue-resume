@@ -56,8 +56,10 @@ export default {
     flex:1;
     display: flex;
     background: #eee;
+    justify-content:center;
+    padding:0 150px;
     .editor{
-      margin:20px 25px 20px 150px;    
+      margin:20px 25px 20px 0px;    
       width:450px;
       box-shadow:0 1px 5px #111;
       border-radius:5px;
@@ -65,15 +67,11 @@ export default {
       background:white;
     }
     .preview{
-      margin:20px 150px 20px 25px;
+      margin:20px 0px 20px 25px;
       overflow:auto;
       // border-radius:5px;
       flex:1
     }
-    .btn{
-      display: fixed;
-      bottom:10%;
-      right:10%
-    }
+
   }
 </style>
