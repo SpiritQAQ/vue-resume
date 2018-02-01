@@ -30,7 +30,6 @@
     methods:{
       signUp(){
         this.$store.commit('signUp')
-        console.log('haha')
       },
       signIn(){
         this.$store.commit('signIn')

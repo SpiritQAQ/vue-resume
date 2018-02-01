@@ -18,8 +18,9 @@
             <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
           </el-form-item> 
           <el-form-item>
-            <el-button type="primary" @click="signUp()">注册</el-button>
+            <el-button type="primary" @click="submitForm(ruleForm2)">注册</el-button>
             <el-button @click="resetForm('ruleForm2')">重置</el-button>
+            {{errorMessage}}
           </el-form-item>
         </el-form>              
       </div>
@@ -42,6 +43,7 @@
 
 <script>
 import AV from 'leancloud-storage'
+import getErrorMessage from '../lib/getErrorMessage'
   export default {
     name:"Sign",
     data() {
@@ -69,16 +71,14 @@ import AV from 'leancloud-storage'
           if (this.ruleForm2.checkPass !== '') {
             this.$refs.ruleForm2.validateField('checkPass');
           }
-          callback();
+          callback(this.signUp());
         }
       };
       var validateLoginPass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入密码'));
         } else {
-          console.log(value.length)
           if (value.length<6||value.length>15){
-            console.log('233')
             callback(new Error('密码长度要在6-15个字符'));
           }
           callback();
@@ -122,7 +122,8 @@ import AV from 'leancloud-storage'
           name: [
             { validator: checkName, trigger: 'blur' }
           ]
-        }
+        },
+        errorMessage :''
       };
     },
     methods: {
@@ -140,13 +141,19 @@ import AV from 'leancloud-storage'
         this.$refs[formName].resetFields();
       },
       signUp:function(){
+        console.log(AV)
         let user = new AV.User()
         user.setUsername(this.ruleForm2.name)
         user.setPassword(this.ruleForm2.pass)
-        user.signUp().then(function(loginUser){
-          console.log(loginUser)
+        user.signUp().then(function(loginedUser){
+          console.log('loginedUser')
         },function(error){
-          console.log(error)
+          this.errorMessage = getErrorMessage(error)
+          // this.$message({
+          //   showClose : true,
+          //   message : this.errorMessage,
+          //   type : 'error'
+          // })
         })
       },
       login:function(){
@@ -196,14 +203,11 @@ import AV from 'leancloud-storage'
     z-index:2;
     height:100%;
     width:100%;
-    // background:url('../../static/img/dialogWaller.jpg');
-    // filter: blur(15px);
-    // background-size: cover;
     
   }
   .dialog:before{
     position: absolute;
-    background:url('../../static/img/dialogWaller.jpg');
+    background:url('../../static/img/dialogWaller2.jpg');
     filter: blur(10px);
     z-index:3;
     background-size: cover;
