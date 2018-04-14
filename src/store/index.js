@@ -72,6 +72,9 @@ export default new Vuex.Store({
       togglePreview(state){
         state.isPreview = !state.isPreview
       },
+      loginSuccessed(state){
+        state.loginSuccess=true
+      },
       showErrorMsg(state, content){//elemeUI的alert
         state.msg.type = "error";
         state.msg.content = content;

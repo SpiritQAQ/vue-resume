@@ -17,7 +17,7 @@
            var msg = this.$store.state.msg.content;
            if(msg !== "") {
              var param = { "type":type, message:msg };
-             console.log("message param:",param)
+            //  console.log("message param:",param)
              this.$message(param);
            }
            return this.$store.state.msg.count;

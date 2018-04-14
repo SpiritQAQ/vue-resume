@@ -33,7 +33,7 @@
             <el-input type="password" v-model="loginForm.pass" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="login()">登陆</el-button>
+            <el-button type="primary" @click="login(loginForm)">登陆</el-button>
           </el-form-item>
         </el-form>              
       </div>    
@@ -91,7 +91,6 @@ import AV from 'leancloud-storage'
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
-          console.log('两次输入密码一致')
         }
       };
       return {
@@ -146,6 +145,9 @@ import AV from 'leancloud-storage'
         user.setPassword(obj.pass)
         user.signUp().then((loginedUser)=>{
           this.$store.commit("showSuccessMsg","注册成功!")
+          this.$store.commit('signInToggle')
+          this.$data.loginForm.name = obj.name
+          this.$data.loginForm.pass = obj.pass
         },(error)=>{
             switch(error.code){
               case 210 : 
@@ -169,12 +171,36 @@ import AV from 'leancloud-storage'
             }
         })
       },
-      login(){
-        AV.User.logIn(this.loginForm.name,this.loginForm.pass).then((loginedUser)=>{
-          console.log(loginedUser.getUsername());
-          
-        }, function (error) {
-          alert('登陆失败')
+      login(obj){
+        AV.User.logIn(obj.name,obj.pass).then((loginedUser)=>{
+          this.$store.commit("showSuccessMsg","登陆成功!")
+          this.$store.commit('loginSuccessed')
+          this.closeDialog()
+          // this.$store.commit('closeDialog')
+        }, (error)=> {
+              switch(error.code){
+              case 210 : 
+                this.$store.commit("showErrorMsg",'用户名与密码不匹配')
+              break;
+              case 201 :
+                this.$store.commit("showErrorMsg",'没有提供密码，或者密码为空。')
+              break;
+              case 211 : 
+                this.$store.commit("showErrorMsg",'找不到用户。')
+              break;   
+              case 217 : 
+                this.$store.commit("showErrorMsg",'无效的用户名，不允许空白用户名。')
+              break;                         
+              case 403 :
+                this.$store.commit("showErrorMsg",'当应用在控制台中的相关服务选项未打开，如 Class 关闭了权限，或是 User 缺失了 session 信息等情况下，云端会统一地返回 403 错误码及不同的错误信息，代表当前请求因权限不够而被拒')
+              break;
+              case 401 :
+                this.$store.commit("showErrorMsg",'未经授权的访问，没有提供 App id，或者 App id 和 App key 校验失败，请检查配置。')
+              break;
+              default:
+               this.$store.commit("showErrorMsg",error)
+              break;
+            }
       });
       },
       signUpToggle(){
@@ -184,12 +210,7 @@ import AV from 'leancloud-storage'
         this.$store.commit('signInToggle')
       },
       closeDialog(){
-        if(this.isLogined=true){
-          setTimeout(()=>{
-            this.$store.commit('closeDialog')
-          },1000)
-          
-        }
+        this.$store.commit('closeDialog')
       }
     },
     computed:{
