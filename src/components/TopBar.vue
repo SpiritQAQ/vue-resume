@@ -4,8 +4,8 @@
       Vue Resume
     </div>
     <div class="buttonbox">
-      <el-button type="primary" @click="signUp(),showDialog()">注册</el-button>
-      <el-button type="primary" @click="signIn(),showDialog()" plain>登录</el-button>
+      <el-button type="primary" @click="signUpToggle(),showDialog()">注册</el-button>
+      <el-button type="primary" @click="signInToggle(),showDialog()" plain>登录</el-button>
     </div> 
   </div>
 </template>
@@ -28,11 +28,11 @@
       }
     },
     methods:{
-      signUp(){
-        this.$store.commit('signUp')
+      signUpToggle(){
+        this.$store.commit('signUpToggle')
       },
-      signIn(){
-        this.$store.commit('signIn')
+      signInToggle(){
+        this.$store.commit('signInToggle')
       },    
       showDialog(){
         this.$store.commit('showDialog')        

@@ -7,6 +7,7 @@
     </main>
     <Sign/>
     <Btn/>
+    <AlertMsg/>
     
   </div>
 </template>
@@ -18,15 +19,18 @@ import Editor from './components/Editor'
 import Sign from './components/Sign'
 import Preview from './components/Preview'
 import Btn from './components/Btn'
+import AlertMsg from './components/AlertMsg'
+
 import store from './store/index'
 import AV from 'leancloud-storage'
+
 
 
 export default {
   name: 'app',
   components: {
     HelloWorld,
-    TopBar,Preview,Editor,Sign,AV,Btn
+    TopBar,Preview,Editor,Sign,Btn,AlertMsg
   },
   store,
   created(){

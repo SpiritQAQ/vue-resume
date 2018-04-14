@@ -10,9 +10,7 @@ import AV from 'leancloud-storage'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(Vuex)
-const appId = 'C5AXdInI1BOzXz0VCfBrsVfD-gzGzoHsz';
-const appKey = 'NgYXXvT9d48vLOgDpr6CLPVc';
-AV.init({ appId, appKey });
+
 
 /* eslint-disable no-new */
 new Vue({
