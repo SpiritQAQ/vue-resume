@@ -1,5 +1,15 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import AV from 'leancloud-storage'
+
+var APP_ID = 'C5AXdInI1BOzXz0VCfBrsVfD-gzGzoHsz';
+var APP_KEY = 'NgYXXvT9d48vLOgDpr6CLPVc';
+AV.init({
+  appId: APP_ID,
+  appKey: APP_KEY
+});
+
+
 
 Vue.use(Vuex)
 
@@ -34,8 +44,9 @@ export default new Vuex.Store({
         },
         activeType:"",
         dialogStatus:false,
-        loginSuccess:true,
+        loginSuccess:false,
         isPreview:false,
+        msg:{type:"success", content:"", count:0},
         
     },
     mutations:{
@@ -46,10 +57,10 @@ export default new Vuex.Store({
       initState(state,payload){
         Object.assign(state,payload) //新打开的页面state替换为localStorage储存的state
       },
-      signUp(state){
+      signUpToggle(state){
         state.activeType="signUp"
       },
-      signIn(state){
+      signInToggle(state){
         state.activeType="signIn"
       },
       showDialog(state){
@@ -60,6 +71,16 @@ export default new Vuex.Store({
       },
       togglePreview(state){
         state.isPreview = !state.isPreview
+      },
+      showErrorMsg(state, content){//elemeUI的alert
+        state.msg.type = "error";
+        state.msg.content = content;
+        state.msg.count = state.msg.count + 1;
+      },
+      showSuccessMsg(state,content){
+        state.msg.type = "success";
+        state.msg.content = content;
+        state.msg.count = state.msg.count + 1;        
       }
 
     }

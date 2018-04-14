@@ -2,8 +2,8 @@
   <div class="dialog" v-show="dialogStatus">
     <section id="sign">
       <div class="tab">
-        <span class="tabList" v-on:click="signIn() ,resetForm('ruleForm2')" v-bind:class="{active : activeType=='signIn'}" value="signIn">登录</span> · 
-        <span class="tabList" v-on:click="signUp() ,resetForm('loginForm')" v-bind:class="{active : activeType=='signUp'}" value="signUp">注册</span>  
+        <span class="tabList" v-on:click="signInToggle() ,resetForm('ruleForm2')" v-bind:class="{active : activeType=='signIn'}" value="signIn">登录</span> · 
+        <span class="tabList" v-on:click="signUpToggle() ,resetForm('loginForm')" v-bind:class="{active : activeType=='signUp'}" value="signUp">注册</span>  
       </div>
       <div class="signUp" v-show="activeType=='signUp'"> <!--v-if会使表单验证的promise报错，
       一般来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。-->
@@ -18,7 +18,7 @@
             <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
           </el-form-item> 
           <el-form-item>
-            <el-button type="primary" @click="submitForm(ruleForm2)">注册</el-button>
+            <el-button type="primary" @click="signUp(ruleForm2)">注册</el-button>
             <el-button @click="resetForm('ruleForm2')">重置</el-button>
             {{errorMessage}}
           </el-form-item>
@@ -26,14 +26,14 @@
       </div>
       <div class="signIn"  v-show="activeType=='signIn'"> 
         <el-form :model="loginForm" status-icon :rules="loginRules" ref="loginForm" label-width="70px" class="demo-ruleForm">
-          <el-form-item label="用户名" prop="name">
+           <el-form-item label="用户名" prop="name">
             <el-input v-model="loginForm.name"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="pass">
             <el-input type="password" v-model="loginForm.pass" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="login(),closeDialog()">登陆</el-button>
+            <el-button type="primary" @click="login()">登陆</el-button>
           </el-form-item>
         </el-form>              
       </div>    
@@ -43,7 +43,7 @@
 
 <script>
 import AV from 'leancloud-storage'
-import getErrorMessage from '../lib/getErrorMessage'
+
   export default {
     name:"Sign",
     data() {
@@ -71,7 +71,7 @@ import getErrorMessage from '../lib/getErrorMessage'
           if (this.ruleForm2.checkPass !== '') {
             this.$refs.ruleForm2.validateField('checkPass');
           }
-          callback(this.signUp());
+          callback();
         }
       };
       var validateLoginPass = (rule, value, callback) => {
@@ -91,7 +91,7 @@ import getErrorMessage from '../lib/getErrorMessage'
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
-          console.log('check')
+          console.log('两次输入密码一致')
         }
       };
       return {
@@ -127,47 +127,61 @@ import getErrorMessage from '../lib/getErrorMessage'
       };
     },
     methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
+      // submitForm(formName) {
+      //   this.$refs[formName].validate((valid) => {
+      //     if (valid) {
+      //       alert('submit!');
+      //     } else {
+      //       console.log('error submit!!');
+      //       return false;
+      //     }
+      //   });
+      // },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
-      signUp:function(){
-        console.log(AV)
-        let user = new AV.User()
-        user.setUsername(this.ruleForm2.name)
-        user.setPassword(this.ruleForm2.pass)
-        user.signUp().then(function(loginedUser){
-          console.log('loginedUser')
-        },function(error){
-          this.errorMessage = getErrorMessage(error)
-          // this.$message({
-          //   showClose : true,
-          //   message : this.errorMessage,
-          //   type : 'error'
-          // })
+      signUp(obj){
+        var user = new AV.User()
+        user.setUsername(obj.name)
+        user.setPassword(obj.pass)
+        user.signUp().then((loginedUser)=>{
+          this.$store.commit("showSuccessMsg","注册成功!")
+        },(error)=>{
+            switch(error.code){
+              case 210 : 
+                this.$store.commit("showErrorMsg",'用户名与密码不匹配')
+              break;
+              case 202 :
+                this.$store.commit("showErrorMsg",'用户名已经被占用')
+              break;
+              case 201 :
+                this.$store.commit("showErrorMsg",'没有提供密码，或者密码为空。')
+              break;
+              case 403 :
+                this.$store.commit("showErrorMsg",'当应用在控制台中的相关服务选项未打开，如 Class 关闭了权限，或是 User 缺失了 session 信息等情况下，云端会统一地返回 403 错误码及不同的错误信息，代表当前请求因权限不够而被拒')
+              break;
+              case 401 :
+                this.$store.commit("showErrorMsg",'未经授权的访问，没有提供 App id，或者 App id 和 App key 校验失败，请检查配置。')
+              break;
+              default:
+               this.$store.commit("showErrorMsg",error)
+              break;
+            }
         })
       },
-      login:function(){
-        AV.User.logIn(this.loginForm.name,this.loginForm.pass).then(function (loginedUser) {
-          console.log(loginedUser);
+      login(){
+        AV.User.logIn(this.loginForm.name,this.loginForm.pass).then((loginedUser)=>{
+          console.log(loginedUser.getUsername());
+          
         }, function (error) {
           alert('登陆失败')
       });
       },
-      signUp(){
-        this.$store.commit('signUp')
+      signUpToggle(){
+        this.$store.commit('signUpToggle')
       },
-      signIn(){
-        this.$store.commit('signIn')
+      signInToggle(){
+        this.$store.commit('signInToggle')
       },
       closeDialog(){
         if(this.isLogined=true){
