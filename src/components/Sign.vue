@@ -207,7 +207,7 @@ import getErrorMessage from '../lib/getErrorMessage'
   }
   .dialog:before{
     position: absolute;
-    background:url('./dist/static/img/dialogWaller2.jpg');
+    background:url('/dist/static/img/dialogWaller2.jpg');
     filter: blur(10px);
     z-index:3;
     background-size: cover;
