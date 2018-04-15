@@ -3,10 +3,14 @@
     <div class='logo'>
       Vue Resume
     </div>
-    <div class="buttonbox">
-      <el-button type="primary" @click="signUpToggle(),showDialog()">注册</el-button>
-      <el-button type="primary" @click="signInToggle(),showDialog()" plain>登录</el-button>
-    </div> 
+    <div class="buttonbox" >
+      <el-button type="primary" v-if="!isLoginSuccessed" @click="signUpToggle(),showDialog()">注册</el-button>
+      <el-button type="primary" v-if="!isLoginSuccessed" @click="signInToggle(),showDialog()" plain>登录</el-button>
+      <div id='username' v-if="isLoginSuccessed">Welcome,{{loginedUser}}</div>
+      <el-button type="primary" v-if="isLoginSuccessed" >登出</el-button>
+      
+    </div>
+     
   </div>
 </template>
 
@@ -25,7 +29,13 @@
       },
       isPreview(){
         return this.$store.state.isPreview
-      }
+      },
+      loginedUser(){
+        return this.$store.state.loginedUser.attributes.username
+      },
+      isLoginSuccessed(){
+        return this.$store.state.loginSuccess
+      },
     },
     methods:{
       signUpToggle(){
@@ -62,6 +72,13 @@
     11px 11px #f3a14b, 12px 12px #f3a14b, 13px 13px #f3a14b, 14px 14px #f3a14b, 15px 15px #f3a14b;
       font-weight: 600;
       font-size:32px;
+    }
+    .buttonbox{
+      display: flex;
+      #username{
+        line-height:40px;
+        padding: 0 20px
+      }
     }
   }
 </style>
