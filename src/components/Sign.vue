@@ -20,7 +20,6 @@
           <el-form-item>
             <el-button type="primary" @click="signUp(ruleForm2)">注册</el-button>
             <el-button @click="resetForm('ruleForm2')">重置</el-button>
-            {{errorMessage}}
           </el-form-item>
         </el-form>              
       </div>
@@ -122,7 +121,6 @@ import AV from 'leancloud-storage'
             { validator: checkName, trigger: 'blur' }
           ]
         },
-        errorMessage :''
       };
     },
     methods: {
@@ -175,6 +173,7 @@ import AV from 'leancloud-storage'
         AV.User.logIn(obj.name,obj.pass).then((loginedUser)=>{
           this.$store.commit("showSuccessMsg","登陆成功!")
           this.$store.commit('loginSuccessed')
+          this.$store.commit('updateLoginedUser',loginedUser)
           this.closeDialog()
           // this.$store.commit('closeDialog')
         }, (error)=> {

@@ -7,7 +7,7 @@
       <el-button type="primary" v-if="!isLoginSuccessed" @click="signUpToggle(),showDialog()">注册</el-button>
       <el-button type="primary" v-if="!isLoginSuccessed" @click="signInToggle(),showDialog()" plain>登录</el-button>
       <div id='username' v-if="isLoginSuccessed">Welcome,{{loginedUser}}</div>
-      <el-button type="primary" v-if="isLoginSuccessed" >登出</el-button>
+      <el-button type="primary" v-if="isLoginSuccessed" @click="logOut()">登出</el-button>
       
     </div>
      
@@ -17,6 +17,7 @@
 
 <script>
   import Sign from './Sign'
+  import AV from 'leancloud-storage'
   export default {
     components:{Sign},
     name: 'Topbar',
@@ -46,6 +47,10 @@
       },    
       showDialog(){
         this.$store.commit('showDialog')        
+      },
+      logOut(){
+        this.$store.commit('userLogout')
+        this.$store.commit("showSuccessMsg","登出成功!")
       }
     }
   

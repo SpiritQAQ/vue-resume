@@ -47,16 +47,16 @@ export default new Vuex.Store({
         loginSuccess:false,
         isPreview:false,
         msg:{type:"success", content:"", count:0},
-        
+        loginedUser :{}
     },
     mutations:{
-      updateResume(state,{itemKey,key,idx,val}){
-          state.resume[itemKey][idx][key] = val
-          localStorage.setItem('state', JSON.stringify(state))
-      },
-      initState(state,payload){
-        Object.assign(state,payload) //新打开的页面state替换为localStorage储存的state
-      },
+      // updateResume(state,{itemKey,key,idx,val}){
+      //     state.resume[itemKey][idx][key] = val
+      //     localStorage.setItem('state', JSON.stringify(state))
+      // },
+      // initState(state,payload){
+      //   Object.assign(state,payload) //新打开的页面state替换为localStorage储存的state
+      // },
       signUpToggle(state){
         state.activeType="signUp"
       },
@@ -84,7 +84,25 @@ export default new Vuex.Store({
         state.msg.type = "success";
         state.msg.content = content;
         state.msg.count = state.msg.count + 1;        
+      },
+      updateLoginedUser(state,user){
+        state.loginedUser = user
+      },
+      userLogout(state){
+        AV.User.logOut()
+        for(let key in state.loginedUser){
+          delete state.loginedUser[key]
+        }
+        setTimeout(()=>{
+          // state.loginSuccess =  false
+          location.reload()
+        },1000)
+      },
+      userResume(state){
+        AV.User.current()
       }
+
+    
 
     }
 })
