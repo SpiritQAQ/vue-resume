@@ -37,7 +37,7 @@ export default new Vuex.Store({
           ],
           '联系方式':[
              {电话号码:'1xxxxxxxxxx'} ,
-             {邮箱: 'xxx@gamil.com'},
+             {邮箱: 'xxx@gmail.com'},
              {github:'github.com/SpiritQAQ'}
             
           ]
