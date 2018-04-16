@@ -110,14 +110,15 @@ export default new Vuex.Store({
         console.log('已经登陆的用户是')
         
         if(currentUser===null){
-          state.loginSuccess = false
-          return 
+          state.loginSuccess = false 
         }else{
           state.loginSuccess = true
           console.log(currentUser.attributes.username)
-          if(currentUser.attributes.userResume === {}){
-            return 
+          if(!currentUser.attributes.userResume['基本信息']){
+            state.loginedUser = currentUser
+            console.log(1)
           }else{
+            console.log(currentUser.attributes.userResume)
             console.log('loading resume')
             state.resume = currentUser.attributes.userResume
             state.loginedUser = currentUser
