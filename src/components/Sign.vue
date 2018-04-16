@@ -174,6 +174,7 @@ import AV from 'leancloud-storage'
           this.$store.commit("showSuccessMsg","登陆成功!")
           this.$store.commit('loginSuccessed')
           this.$store.commit('updateLoginedUser',loginedUser)
+          this.$store.commit('loadResume')
           this.closeDialog()
           // this.$store.commit('closeDialog')
         }, (error)=> {

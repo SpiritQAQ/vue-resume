@@ -20,6 +20,8 @@
       },
       saveResume(){
         this.$store.commit('saveResume')
+        this.$store.commit("showSuccessMsg","已保存到云端")
+        
       }
       
     }

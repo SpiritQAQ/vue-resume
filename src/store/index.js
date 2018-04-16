@@ -50,10 +50,9 @@ export default new Vuex.Store({
         loginedUser :{}
     },
     mutations:{
-      // updateResume(state,{itemKey,key,idx,val}){
-      //     state.resume[itemKey][idx][key] = val
-      //     localStorage.setItem('state', JSON.stringify(state))
-      // },
+      updateResume(state,{itemKey,key,idx,val}){
+          state.resume[itemKey][idx][key] = val
+      },
       // initState(state,payload){
       //   Object.assign(state,payload) //新打开的页面state替换为localStorage储存的state
       // },
@@ -112,15 +111,17 @@ export default new Vuex.Store({
       loadResume(state){  
         let currentUser = AV.User.current()
         console.log('已经登陆的用户是')
-        console.log(currentUser)
+        
         if(currentUser===null){
           state.loginSuccess = false
           return 
         }else{
           state.loginSuccess = true
+          console.log(currentUser.attributes.username)
           if(currentUser.attributes.userResume === {}){
             return 
           }else{
+            console.log('loading resume')
             state.resume = currentUser.attributes.userResume
             state.loginedUser = currentUser
           }
