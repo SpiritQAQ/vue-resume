@@ -2,7 +2,7 @@
   <div class="btn">
     <el-button type="primary" icon="el-icon-edit" v-show="isPreview" @click="togglePreview()">编辑</el-button>
     <el-button type="primary" icon="el-icon-picture" v-show="!isPreview" @click="togglePreview()">预览</el-button>
-    <el-button type="primary" icon="el-icon-document" @click="saveResume()">保存</el-button>
+    <el-button type="primary" icon="el-icon-document" v-show="isLogined" @click="saveResume()">保存</el-button>
   </div>
 </template>
 
@@ -12,6 +12,9 @@
     computed:{
       isPreview(){
         return this.$store.state.isPreview
+      },
+      isLogined(){
+        return this.$store.state.loginSuccess
       }
     },
     methods:{
