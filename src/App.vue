@@ -34,11 +34,14 @@ export default {
   },
   store,
   created(){
-    let state = localStorage.getItem('state')
-    if(state){
-      state = JSON.parse(state)
-    }
-    this.$store.commit('initState',state)
+    // let state = localStorage.getItem('state')
+    // if(state){
+    //   state = JSON.parse(state)
+    // }
+    // this.$store.commit('initState',state)
+    //以上是localStorage
+    // this.$store.commit('isLoginedStatus')    
+    this.$store.commit('loadResume')
   }
 }
 </script>

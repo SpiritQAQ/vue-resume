@@ -86,7 +86,7 @@ export default new Vuex.Store({
         state.msg.count = state.msg.count + 1;        
       },
       updateLoginedUser(state,user){
-        state.loginedUser = user
+        state.loginedUser = AV.User.current()
       },
       userLogout(state){
         AV.User.logOut()
@@ -100,8 +100,42 @@ export default new Vuex.Store({
       },
       userResume(state){
         AV.User.current()
-      }
+      },
+      saveResume(state){
+        let acl = new AV.ACL()
+        let currentUser = AV.User.current()
+        acl.setReadAccess(AV.User.current(),true) 
+        acl.setWriteAccess(AV.User.current(),true)
+        currentUser.set('userResume' , state.resume)
+        currentUser.save()
+      },
+      loadResume(state){  
+        let currentUser = AV.User.current()
+        console.log('已经登陆的用户是')
+        console.log(currentUser)
+        if(currentUser===null){
+          state.loginSuccess = false
+          return 
+        }else{
+          state.loginSuccess = true
+          if(currentUser.attributes.userResume === {}){
+            return 
+          }else{
+            state.resume = currentUser.attributes.userResume
+            state.loginedUser = currentUser
+          }
+        }
 
+      },
+      isLoginedStatus(state){
+        console.log(AV.User.current())
+        // if(AV.User.current()==null){
+        //   this.state.loginSuccess = false
+        // }else{
+        //   this.state.loginSuccess = true
+        // }
+      }
+ 
     
 
     }
