@@ -17,7 +17,7 @@ export default new Vuex.Store({
     state : {       
         resume:{
           '基本信息':[{
-            姓名:'王铁锤',出生日期:'1900.01.01',城市:'山东威海',职位:'铁锤工程师'
+            姓名:'我的姓名',出生日期:'1900.01.01',城市:'我的城市',职位:'我的职位'
           }],
           '工作经历':[
             { 公司: '这里是公司名',时间:'2007.6-2008.9', 详情: '工作详情' },
@@ -96,9 +96,6 @@ export default new Vuex.Store({
           // state.loginSuccess =  false
           location.reload()
         },1000)
-      },
-      userResume(state){
-        AV.User.current()
       },
       saveResume(state){
         let acl = new AV.ACL()
