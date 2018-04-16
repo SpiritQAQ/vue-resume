@@ -107,7 +107,7 @@
         if(items.length>1){
           items.splice(items.indexOf(item),1) 
         }else{
-          alert('不能再少了')
+          this.$store.commit("showErrorMsg","不能再少了")
         }       
       }
         
